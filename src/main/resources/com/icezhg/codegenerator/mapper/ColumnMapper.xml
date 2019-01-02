@@ -7,12 +7,17 @@
     <result column="COLUMN_NAME" jdbcType="VARCHAR" property="columnName" />
     <result column="ORDINAL_POSITION" jdbcType="BIGINT" property="ordinalPosition" />
     <result column="DATA_TYPE" jdbcType="VARCHAR" property="dataType" />
+    <result column="CHARACTER_MAXIMUM_LENGTH" jdbcType="BIGINT" property="characterMaximumLength" />
+    <result column="CHARACTER_OCTET_LENGTH" jdbcType="BIGINT" property="characterOctetLength" />
+    <result column="NUMERIC_PRECISION" jdbcType="BIGINT" property="numericPrecision" />
+    <result column="NUMERIC_SCALE" jdbcType="BIGINT" property="numericScale" />
     <result column="COLUMN_COMMENT" jdbcType="VARCHAR" property="columnComment" />
     <result column="COLUMN_TYPE" jdbcType="LONGVARCHAR" property="columnType" />
   </resultMap>
 
   <sql id="BaseColumns">
-    TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION, DATA_TYPE, COLUMN_COMMENT, COLUMN_TYPE
+    TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, CHARACTER_OCTET_LENGTH,
+      NUMERIC_PRECISION, NUMERIC_SCALE, COLUMN_COMMENT, COLUMN_TYPE
   </sql>
 
   <select id="selectAll" resultMap="BaseResultMap">

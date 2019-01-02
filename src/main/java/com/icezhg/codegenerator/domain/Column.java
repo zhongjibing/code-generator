@@ -16,6 +16,14 @@ public class Column {
 
     private String dataType;
 
+    private Long characterMaximumLength;
+
+    private Long characterOctetLength;
+
+    private Long numericPrecision;
+
+    private Long numericScale;
+
     private String columnComment;
 
     private String columnType;
@@ -60,6 +68,38 @@ public class Column {
         this.dataType = dataType;
     }
 
+    public Long getCharacterMaximumLength() {
+        return characterMaximumLength;
+    }
+
+    public void setCharacterMaximumLength(Long characterMaximumLength) {
+        this.characterMaximumLength = characterMaximumLength;
+    }
+
+    public Long getCharacterOctetLength() {
+        return characterOctetLength;
+    }
+
+    public void setCharacterOctetLength(Long characterOctetLength) {
+        this.characterOctetLength = characterOctetLength;
+    }
+
+    public Long getNumericPrecision() {
+        return numericPrecision;
+    }
+
+    public void setNumericPrecision(Long numericPrecision) {
+        this.numericPrecision = numericPrecision;
+    }
+
+    public Long getNumericScale() {
+        return numericScale;
+    }
+
+    public void setNumericScale(Long numericScale) {
+        this.numericScale = numericScale;
+    }
+
     public String getColumnComment() {
         return columnComment;
     }
@@ -75,5 +115,4 @@ public class Column {
     public void setColumnType(String columnType) {
         this.columnType = columnType;
     }
-
 }

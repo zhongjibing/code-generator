@@ -1,48 +1,31 @@
 package com.icezhg.codegenerator.utils;
 
+
+import java.util.Arrays;
+
+/**
+ * Created by zhongjibing on 2018/12/27.
+ */
 public class NameUtil {
-    /**
-     * 生成类名，也就是首字母大写
-     *
-     * @param name
-     * @return
-     */
-    public static String className(String name) {
-        if (name != null) {
-            String[] words = name.split("_");
-            StringBuilder finalClassName = new StringBuilder();
-            if (words.length > 0) {
-                for (String s : words) {
-                    finalClassName.append(s.substring(0, 1).toUpperCase() + s.substring(1));
-                }
-            }
-            name = finalClassName.toString();
+    private static final String REGEX_SEPARATOR = "_";
+    private static final String REGEX_REPLACEMENT = "^is_";
+
+    public static String className(String tableName) {
+        String[] names = tableName.toLowerCase().split(REGEX_SEPARATOR);
+        StringBuilder className = new StringBuilder();
+        for (String s : names) {
+            className.append(s.substring(0, 1).toUpperCase()).append(s.substring(1));
         }
-        return name;
+        return className.toString();
     }
 
-    /**
-     * 生成字段名，驼峰命名法
-     *
-     * @param name
-     * @return
-     */
-    public static String fieldName(String name) {
-        if (name != null) {
-            String[] words = name.split("_");
-            StringBuilder fieldName = new StringBuilder();
-            if (words.length > 0) {
-                for (String s : words) {
-                    if (fieldName.length() == 0) {
-                        fieldName.append(s.substring(0, 1).toLowerCase() + s.substring(1));
-                    } else {
-                        fieldName.append(s.substring(0, 1).toUpperCase() + s.substring(1));
-                    }
-                }
-            }
-            name = fieldName.toString();
+    public static String fieldName(String columnName) {
+        String[] names = columnName.toLowerCase().replaceFirst(REGEX_REPLACEMENT, "").split(REGEX_SEPARATOR);
+        StringBuilder fieldName = new StringBuilder(names[0]);
+        for (String s : Arrays.copyOfRange(names, 1, names.length)) {
+            fieldName.append(s.substring(0, 1).toUpperCase()).append(s.substring(1));
         }
-        return name;
+        return fieldName.toString();
     }
 
 }

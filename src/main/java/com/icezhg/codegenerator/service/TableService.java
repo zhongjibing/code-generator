@@ -3,6 +3,7 @@ package com.icezhg.codegenerator.service;
 import java.util.List;
 
 import com.icezhg.codegenerator.domain.Table;
+import com.icezhg.codegenerator.enums.TableType;
 import com.icezhg.codegenerator.mapper.TableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class TableService {
 
-    @Autowired
+//    @Autowired
     private TableMapper tableMapper;
 
-    public List<Table> selectAll() {
+    public List<Table> findAll() {
         return tableMapper.selectAll();
     }
 
-    public List<Table> select(String tableSchema, String tableType, String tableName) {
+    public List<Table> find(String tableSchema, String tableType, String tableName) {
         return tableMapper.select(tableSchema, tableType, tableName);
     }
 }

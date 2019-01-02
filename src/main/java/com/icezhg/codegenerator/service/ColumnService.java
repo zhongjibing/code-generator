@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ColumnService {
 
-    @Autowired
+//    @Autowired
     private ColumnMapper tableMapper;
 
-    public List<Column> select(String tableSchema, String tableName) {
+    public List<Column> find(String tableSchema, String tableName) {
         return tableMapper.select(tableSchema, tableName);
     }
 }

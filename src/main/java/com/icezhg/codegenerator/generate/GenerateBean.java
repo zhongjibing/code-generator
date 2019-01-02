@@ -1,9 +1,10 @@
 package com.icezhg.codegenerator.generate;
 
+import com.icezhg.codegenerator.component.FieldBean;
+import com.icezhg.codegenerator.utils.NameUtil;
 import com.squareup.javapoet.*;
 
 import javax.lang.model.element.Modifier;
-import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -19,41 +20,41 @@ public class GenerateBean extends GenerateBase {
     }
 
     public void generate() {
-        if (fields == null || fields.isEmpty()) {
-            throw new GenerateException(table + "表没有字段");
-        }
-        fields.stream().forEach(field -> {
-            Object type = FieldTypeUtil.getType(field);
-            FieldSpec.Builder fieldBuilder;
-            String fieldName = NameUtil.fieldName(field.getName());
-            if (type instanceof TypeName) {
-                fieldBuilder = FieldSpec.builder((TypeName) type, fieldName, Modifier.PRIVATE);
-            } else if (type instanceof Type) {
-                fieldBuilder = FieldSpec.builder((Type) type, fieldName, Modifier.PRIVATE);
-            } else {
-                throw new GenerateException("不支持的数据类型");
-            }
-
-            //ID的注解
-            if (field.isPrimary()) {
-                fieldBuilder.addAnnotation(AnnotationSpec.builder(ClassName.bestGuess("javax.persistence.Id")).build());
-            }
-            //自动增长的注解
-            if (field.isAutoIncrement()) {
-                AnnotationSpec.Builder AotuIncAnnoBuilder = AnnotationSpec.builder(ClassName.bestGuess("javax.persistence.GeneratedValue"));
-                AotuIncAnnoBuilder.addMember("strategy", "$T", ClassName.bestGuess("javax.persistence.GenerationType.IDENTITY"));
-                fieldBuilder.addAnnotation(AotuIncAnnoBuilder.build());
-            }
-            //不能为空的注解
-            if (!field.isCanNull() && !"id".equals(field.getName())) {
-                AnnotationSpec.Builder notNullAnnoBuilder = AnnotationSpec.builder(ClassName.bestGuess("javax.validation.constraints.NotNull"));
-                //如果有注释，就取注释，不然，就取字段名
-                String name = field.isCommentEmpty() ? field.getName() : field.getComment();
-                notNullAnnoBuilder.addMember("message", "\"$L不能为空\"", name);
-                fieldBuilder.addAnnotation(notNullAnnoBuilder.build());
-            }
-            addField(fieldBuilder.build());
-        });
+//        if (fields == null || fields.isEmpty()) {
+//            throw new GenerateException(table + "表没有字段");
+//        }
+//        fields.stream().forEach(field -> {
+//            Object type = FieldTypeUtil.getType(field);
+//            FieldSpec.Builder fieldBuilder;
+//            String fieldName = NameUtil.fieldName(field.getName());
+//            if (type instanceof TypeName) {
+//                fieldBuilder = FieldSpec.builder((TypeName) type, fieldName, Modifier.PRIVATE);
+//            } else if (type instanceof Type) {
+//                fieldBuilder = FieldSpec.builder((Type) type, fieldName, Modifier.PRIVATE);
+//            } else {
+//                throw new GenerateException("不支持的数据类型");
+//            }
+//
+//            //ID的注解
+//            if (field.isPrimary()) {
+//                fieldBuilder.addAnnotation(AnnotationSpec.builder(ClassName.bestGuess("javax.persistence.Id")).build());
+//            }
+//            //自动增长的注解
+//            if (field.isAutoIncrement()) {
+//                AnnotationSpec.Builder AotuIncAnnoBuilder = AnnotationSpec.builder(ClassName.bestGuess("javax.persistence.GeneratedValue"));
+//                AotuIncAnnoBuilder.addMember("strategy", "$T", ClassName.bestGuess("javax.persistence.GenerationType.IDENTITY"));
+//                fieldBuilder.addAnnotation(AotuIncAnnoBuilder.build());
+//            }
+//            //不能为空的注解
+//            if (!field.isCanNull() && !"id".equals(field.getName())) {
+//                AnnotationSpec.Builder notNullAnnoBuilder = AnnotationSpec.builder(ClassName.bestGuess("javax.validation.constraints.NotNull"));
+//                //如果有注释，就取注释，不然，就取字段名
+//                String name = field.isCommentEmpty() ? field.getName() : field.getComment();
+//                notNullAnnoBuilder.addMember("message", "\"$L不能为空\"", name);
+//                fieldBuilder.addAnnotation(notNullAnnoBuilder.build());
+//            }
+//            addField(fieldBuilder.build());
+//        });
     }
 
     /**

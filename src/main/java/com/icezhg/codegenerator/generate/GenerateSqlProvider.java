@@ -1,5 +1,7 @@
 package com.icezhg.codegenerator.generate;
 
+import com.icezhg.codegenerator.component.FieldBean;
+import com.icezhg.codegenerator.utils.NameUtil;
 import com.squareup.javapoet.*;
 
 import javax.lang.model.element.Modifier;
